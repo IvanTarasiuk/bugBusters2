@@ -1,0 +1,14 @@
+{% extends 'layouts/base_user.html' %}
+{% block content %}
+{% load static %}
+    {% include 'layouts/questionBase.html' %}
+        {% for answer in answers %}
+            {% include 'layouts/answerBase.html' %}
+        {% endfor %}
+            <!-- Поле для ввода ответа -->
+            <div class="answer-form">
+                <h4>Your Answer</h4>
+                <textarea class="form-control mb-2" rows="2"></textarea>
+                <button class="btn btn-submit">Answer</button>
+            </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+ {% extends 'layouts/base.html' %}
+ {% block content %}
+ {% load static %}
+<!-- Основной контент -->
+        <div class="col-md-8">
+            <h2>Log In</h2>
+
+            <!-- Форма входа -->
+            <form>
+                <!-- Поле логина -->
+                <div class="mb-3 col-4">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="login" placeholder="Enter your login">
+                </div>
+                
+                <!-- Поле пароля -->
+                <div class="mb-3 col-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                
+                <!-- Сообщение об ошибке -->
+                <p class="error-message">Wrong password!</p>
+                
+                <!-- Кнопка входа -->
+                <div class="col-5">
+                    <a href="{% url 'index' %}" class="btn btn-primary">Log in</a>
+                </div>
+                <!-- Ссылка на создание нового аккаунта -->
+                <div class="text-left mt-3">
+                    <a href="{% url 'signup' %}" class="text-light">Create new account</a>
+                </div>
+            </form>
+        </div>
+ {% endblock %}

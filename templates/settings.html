@@ -1,0 +1,47 @@
+{% extends 'layouts/base_user.html' %}
+{% block content %}
+{% load static %}
+        <!-- Основной контент -->
+        <div class="col-md-8">
+            <h2>Settings: Vanechka</h2>
+
+              <!-- Блок настроек пользователя -->
+            <form>
+                <!-- Поле логина -->
+                <div class="mb-4 d-flex align-items-center">
+                    <label for="login" class="form-label me-3" style="width: 100px;">Login</label>
+                    <input type="text" class="form-control bg-dark" id="login" placeholder="Enter your login" value="Vanechka" disabled readonly>
+                </div>
+                
+                <!-- Поле почты -->
+                <div class="mb-4 d-flex align-items-center">
+                    <label for="mail" class="form-label me-3" style="width: 100px;">Email</label>
+                    <input type="email" class="form-control bg-dark" id="mail" placeholder="Enter your email" value="vanechka@vk.com" disabled readonly>
+                </div>
+                
+                <!-- Поле ника -->
+                <div class="mb-4 d-flex align-items-center">
+                    <label for="nickname" class="form-label me-3" style="width: 100px;">Nickname</label>
+                    <input type="text" class="form-control bg-dark" id="nickname" placeholder="Enter your nickname" value="_vanechka_" disabled readonly>
+                </div>
+                
+                <!-- Блок загрузки аватара -->
+                <div class="mb-4">
+                    <label class="form-label">Avatar</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="avatarPath" placeholder="Your path" value="C://profile.png" readonly>
+                        <label class="input-group-text btn btn-outline-secondary" for="avatarUpload">Choose</label>
+                        <input type="file" class="d-none" id="avatarUpload" accept="image/*" onchange="previewAvatar(this)">
+                    </div>
+                    <!-- Контейнер для предпросмотра аватара -->
+                    <div class="mt-4">
+                        <img id="avatarPreview" src="{% static 'images/profile.png' %}" alt="Avatar Preview" width="80" height="80" class="rounded-circle border">
+                    </div>
+                </div>
+                
+                <!-- Кнопка сохранения -->
+                <button type="submit" class="btn btn-outline-success">Save</button>
+            </form>
+            
+        </div>
+{% endblock %}

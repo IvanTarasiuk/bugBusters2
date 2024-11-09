@@ -1,0 +1,30 @@
+ {% extends 'layouts/base.html' %}
+ {% block content %}
+ {% load static %}
+        <!-- Основной контент -->
+        <div class="col-md-8">
+            <h2>New Question</h2>
+            <!-- Форма добавления нового вопроса -->
+            <div class="card" data-bs-theme="dark">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="questionTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="questionTitle" placeholder="Enter a concise question title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionText" class="form-label">Text</label>
+                            <textarea class="form-control" id="questionText" rows="5" placeholder="Describe your question in detail"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionTags" class="form-label">Tags</label>
+                            <p class="error-message">Tag is incorrect!</p>
+                            <input type="text" class="form-control" id="questionTags" placeholder="Enter relevant tags separated by commas">
+                        </div>
+                        <button type="submit" class="btn btn-submit">Ask</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+ {% endblock %}

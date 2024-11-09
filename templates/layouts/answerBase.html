@@ -1,0 +1,29 @@
+{% load static %}
+<!-- Карточки ответов -->
+            <div class="answer-card card" data-bs-theme="dark">
+                    <div class="answer-content d-flex">
+                        <div class="profile col-md-2 text-center">
+                            <img src="{% static 'images/profile.png' %}"  class="img-fluid rounded-circle" width="50" alt="user profile">
+                            <p class="mb-4"></p>
+                            <div class="dropdown mt-2">
+                                <button class="btn btn-outline-light dropdown-toggle" type="button" id="ratingDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Rate
+                                </button>
+                                <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownRateAnswer1">
+                                    <li><a class="dropdown-item" href="#">1</a></li>
+                                    <li><a class="dropdown-item" href="#">2</a></li>
+                                    <li><a class="dropdown-item" href="#">3</a></li>
+                                    <li><a class="dropdown-item" href="#">4</a></li>
+                                    <li><a class="dropdown-item" href="#">5</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="answer-text">
+                            <p> {{ answer.text }}</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="correctAnswer1">
+                                <label class="form-check-label" for="correctAnswer1">Correct</label>
+                            </div>
+                        </div>
+                </div>
+            </div>

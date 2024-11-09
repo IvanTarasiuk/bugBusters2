@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+        <!-- Основной контент -->
+        <div class="col-md-8">
+            <h2>Registration</h2>
+
+            <!-- Форма входа -->
+            <form>
+                <!-- Поле логина -->
+                <div class="mb-2 col-5">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" class="form-control" id="login" placeholder="Enter your login">
+                </div>
+                <!-- Поле почты -->
+                <div class="mb-2 col-5">
+                    <label for="mail" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="mail" placeholder="Enter your e-mail">
+                    <p class="error-message">E-mail is already register!</p>
+                </div>
+                <!-- Поле ника -->
+                <div class="mb-2 col-5">
+                    <label for="nickname" class="form-label">Nickname</label>
+                    <input type="text" class="form-control" id="nickname" placeholder="Enter your nickname">
+                    <p class="error-message">Nickname is already in use!</p>
+                </div>
+                <!-- Поле пароля -->
+                <div class="mb-2 col-5">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <!-- Поле подтверждения пароля -->
+                <div class="mb-2 col-5">
+                    <label for="password" class="form-label">Repeat password</label>
+                    <input type="password" class="form-control" id="r_password" placeholder="Repeat your password">
+                    <p class="error-message">Passwords do not match!</p>
+                </div>
+                <!-- Блок загрузки аватара -->
+                <div class="mb-2 col-5">
+                    <label class="form-label">Avatar</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="avatarPath" placeholder="Your path" value="C://profile.png" readonly>
+                        <label class="input-group-text btn btn-outline-secondary" for="avatarUpload">Choose</label>
+                        <input type="file" class="d-none" id="avatarUpload" accept="image/*" onchange="previewAvatar(this)">
+                    </div>
+                    <!-- Контейнер для предпросмотра аватара -->
+                    <div class="mt-2">
+                        <img id="avatarPreview" src="{% static 'images/profile.png' %}" alt="Avatar Preview" width="80" height="80" class="rounded-circle border">
+                    </div>
+                </div>
+                
+                <!-- Кнопка входа -->
+                <div class="col-5">
+                    <a href="{% url 'index' %}" class="btn btn-primary">Sign up</a>
+                </div>
+            </form>
+</div>
+{% endblock %}

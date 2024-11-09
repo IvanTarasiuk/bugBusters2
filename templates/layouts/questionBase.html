@@ -1,0 +1,31 @@
+{% load static %}
+<div class="card" data-bs-theme="dark">
+                <div class="row g-0">
+                    <div class="col-md-2 text-center">
+                        <p class="mb-2"></p>
+                        <img src="{% static 'images/profile.png' %}" class="img-fluid rounded-circle" alt="Avatar" width="50">
+                        <p class="mb-4"></p>
+                        <div class="dropdown mt-2">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="ratingDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Rate
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="ratingDropdown">
+                                <li><a class="dropdown-item" href="#">1</a></li>
+                                <li><a class="dropdown-item" href="#">2</a></li>
+                                <li><a class="dropdown-item" href="#">3</a></li>
+                                <li><a class="dropdown-item" href="#">4</a></li>
+                                <li><a class="dropdown-item" href="#">5</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                        <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'question' question.id %}" class="text-light">{{ question.text }}</a></h5>
+                            {% for i in question.tagsName %}
+                                <p class="card-text"><small class="text-muted">Теги: <a href="{% url 'tag' i %}" class="text-light">{{i}}</a></small></p>
+                            {% endfor %}
+                            <p class="card-text"><small class="text-muted"><a href="#" class="text-light">Ответы (3)</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>

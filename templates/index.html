@@ -1,0 +1,9 @@
+{% extends 'layouts/base_user.html' %}
+{% block content %}
+{% load static %}
+        <h1>New Questions</h1>
+        <a href="{% url 'hot' %}">Hot Questions</a>
+    {% for question in questions %}
+        {% include 'layouts/questionBase.html' %}
+    {% endfor %}
+{% endblock %}
