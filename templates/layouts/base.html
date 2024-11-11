@@ -15,7 +15,36 @@
             background-color: #212529; /* Тёмный фон */
             border-radius: 0.375rem;
             padding: 10px;
+            display: flex;
+            flex-wrap: nowrap; /* Запрещаем перенос */
         }
+        
+        .pagination-container {
+            text-align: center; /* Центрируем пагинацию */
+            margin: 20px 0;
+        }
+        
+        .pagination {
+            display: inline-block; /* Пагинация не займет всю ширину страницы */
+            overflow-x: auto; /* Добавляем прокрутку по оси X */
+            white-space: nowrap; /* Отключаем перенос строк */
+        }
+        
+        .pagination a, .pagination .current-page {
+            color: #007bff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 2px;
+            border-radius: 4px;
+        }
+        
+        .pagination .current-page {
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+        }
+
 
         /* Цвет ссылок в активной странице */
         .page-item.active .page-link {
@@ -153,7 +182,9 @@
             <h2>Popular Tags</h2>
                 <div>
                     {% for tag in tags %}
-                    <a href="{% url 'tag' tag.text %}" class="text-decoration-none badge text-bg-secondary">{{ tag.text }}</a>
+                        {% if tag.name %}
+                            <a href="{% url 'tag' tag.name %}" class="text-decoration-none badge text-bg-secondary">{{ tag.name }}</a>
+                        {% endif %}
                     {% endfor %}
                 </div>
 

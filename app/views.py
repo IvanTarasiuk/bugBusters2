@@ -1,53 +1,8 @@
-import copy
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
-# Create your views here.
+from django.shortcuts import render, get_object_or_404
+from .models import Question, Answer, Tag
 
-
-questions = [
-    {
-        'title': f'Title {i}',
-        'id': i,
-        'text': f'Text of question {i}?',
-        'tagsName': ["one", "two", "three"],
-    } for i in range(30)
-]
-
-answers = [
-    {
-        'user_id': i+5,
-        'text': f'Text of asnwer {i}'
-    } for i in range(10)
-]
-
-tags = [
-    {
-        'text': 'one',
-    },
-    {
-        'text': 'two',
-    },
-    {
-        'text': 'three',
-    },
-    {
-        'text': 'four',
-    },
-    {
-        'text': 'five',
-    },
-    {
-        'text': 'six',
-    },
-    {
-        'text': 'seven',
-    },
-    {
-        'text': 'eight',
-    }
-]
-
-
+# Пагинация
 def paginate(objects_list, request, per_page):
     page_number = request.GET.get('page', 1)
     paginator = Paginator(objects_list, per_page)
@@ -55,73 +10,82 @@ def paginate(objects_list, request, per_page):
     try:
         page = paginator.page(page_number)
     except PageNotAnInteger:
-        # Если параметр `page` не является числом, возвращаем первую страницу
         page = paginator.page(1)
     except EmptyPage:
-        # Если запрашиваемая страница выходит за пределы, возвращаем последнюю страницу
         page = paginator.page(paginator.num_pages)
 
     return page
 
-
+# Отображение главной страницы с новыми вопросами
 def index(request):
+    questions = Question.objects.best_questions()
+    tags = Tag.objects.all()  # получение всех тегов для отображения
     page = paginate(questions, request, 5)
     return render(
         request, 'index.html',
         context={'questions': page.object_list, 'page': page, 'tags': tags},
     )
 
-def hot(request):
-
-    page = paginate(questions, request, 5)
-    return render(
-        request, 'hot.html',
-        context={'questions': page.object_list, 'page': page, 'tags': tags},
-    )
-
+# Страница входа
 def login(request):
+    tags = Tag.objects.all()
+    return render(request, 'login.html', {'tags': tags})
 
-    return render(
-        request, 'login.html', {'tags': tags}
-    )
-
+#Отображение страницы конкретного вопроса
 def question(request, question_id):
-    question = questions[question_id]
+    question = get_object_or_404(Question, id=question_id)  # получение вопроса по id
+    answers = Answer.objects.filter(question=question)  # получение ответов, связанных с вопросом
     page = paginate(answers, request, 5)
+    tags = Tag.objects.all()
     return render(
         request, 'question.html',
         {'question': question, 'answers': page.object_list, 'page': page, 'tags': tags},
     )
 
+# Страница настроек
 def settings(request):
-    return render(
-        request, 'settings.html', {'tags': tags}
-        )
+    tags = Tag.objects.all()
+    return render(request, 'settings.html', {'tags': tags})
 
+# Страница регистрации
 def signup(request):
-    return render(
-        request, 'signup.html',{'tags': tags}
-        )
+    tags = Tag.objects.all()
+    return render(request, 'signup.html', {'tags': tags})
 
+# Страница для публикации нового вопроса
 def ask(request):
-    return render(
-        request, 'ask.html', {'tags': tags}
-        )
+    tags = Tag.objects.all()
+    return render(request, 'ask.html', {'tags': tags})
 
+# Базовая страница пользователя
 def base_user(request):
-    return render(
-        request, 'layouts/base_user.html', {'tags': tags}
-        )
+    tags = Tag.objects.all()
+    return render(request, 'layouts/base_user.html', {'tags': tags})
 
+# Отображение вопросов по тегу
 def tag(request, tag_name):
-    # Найдём тег с text, равным tag_name
-    tag_item = next((tag for tag in tags if tag['text'] == tag_name), None)
-    if not tag_item:
-        # Если тег не найден, можно вернуть 404
-        return render(request, '404.html', status=404)
-
+    tag = get_object_or_404(Tag, name=tag_name)  # поиск тега по имени
+    questions = Question.objects.filter(tags=tag)  # вопросы, связанные с этим тегом
     page = paginate(questions, request, 5)
+    tags = Tag.objects.all()
     return render(
         request, 'tag.html',
-        {'tag': tag_item, 'questions': page.object_list, 'page': page, 'tags': tags},
+        {'tag': tag, 'questions': page.object_list, 'page': page, 'tags': tags},
+    )
+
+# Отображение новых вопросов
+def new_questions(request):
+    questions = Question.objects.new_questions()
+    page = paginate(questions, request, 5)
+    tags = Tag.objects.all()
+    return render(request, 'ask.html', {'questions': page, 'tags': tags})
+
+# Отображение популярных вопросов
+def hot(request):
+    questions = Question.objects.best_questions()
+    tags = Tag.objects.all()  # получение всех тегов для отображения
+    page = paginate(questions, request, 5)
+    return render(
+        request, 'hot.html',
+        context={'questions': page.object_list, 'page': page, 'tags': tags},
     )

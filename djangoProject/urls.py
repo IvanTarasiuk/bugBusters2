@@ -29,5 +29,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('ask/', views.ask, name='ask'),
     path('base_user/', views.base_user, name='base_user'),
-    re_path(r"^tag/(?P<tag_name>[a-z]+)", views.tag, name='tag'),
+    path('hot/', views.hot, name='hot'),
+    path('tag/<str:tag_name>/', views.tag, name='tag'),
+    path('question/<int:question_id>/', views.question, name='question'),
 ]

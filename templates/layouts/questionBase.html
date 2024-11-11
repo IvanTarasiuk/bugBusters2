@@ -21,10 +21,12 @@
                         <div class="col-md-10">
                         <div class="card-body">
                             <h5 class="card-title"><a href="{% url 'question' question.id %}" class="text-light">{{ question.text }}</a></h5>
-                            {% for i in question.tagsName %}
-                                <p class="card-text"><small class="text-muted">Теги: <a href="{% url 'tag' i %}" class="text-light">{{i}}</a></small></p>
-                            {% endfor %}
-                            <p class="card-text"><small class="text-muted"><a href="#" class="text-light">Ответы (3)</a></small></p>
+                            <div class="question-tags">
+                                {% for tag in question.tags.all %}
+                                    <a href="{% url 'tag' tag.name %}" class="tag">{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href="{% url 'question' question.id%}" class="text-light">Ответы</a></small></p>
                         </div>
                     </div>
                 </div>
