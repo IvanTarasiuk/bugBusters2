@@ -64,7 +64,7 @@ def base_user(request):
 
 # Отображение вопросов по тегу
 def tag(request, tag_name):
-    tag = get_object_or_404(Tag, name=tag_name)  # поиск тега по имени
+    tag = get_object_or_404(Tag, name=tag_name)
     questions = Question.objects.filter(tags=tag)  # вопросы, связанные с этим тегом
     page = paginate(questions, request, 5)
     tags = Tag.objects.all()
